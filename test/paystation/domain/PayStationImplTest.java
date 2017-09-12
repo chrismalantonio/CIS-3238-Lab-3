@@ -11,6 +11,8 @@
  */
 package paystation.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -182,7 +184,9 @@ public class PayStationImplTest {
     public void shouldReturnOneCoinMap()
             throws IllegalCoinException {
         ps.addPayment(5);
-        assertEquals("cancel should return a map containing one coin entered", 5, ps.cancel() );
+        Map<Integer, Integer> map = new HashMap<>();
+        map = ps.cancel(); 
+        assertEquals("cancel should return a map containing one coin entered", 1, map.size());
         
     }
 }
