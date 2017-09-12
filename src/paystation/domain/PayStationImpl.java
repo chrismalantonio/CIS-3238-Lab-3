@@ -60,6 +60,6 @@ public class PayStationImpl implements PayStation {
     }
     
     public int empty(){
-        return 0; 
+        return insertedSoFar; 
     }
 }
