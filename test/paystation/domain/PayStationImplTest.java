@@ -143,7 +143,7 @@ public class PayStationImplTest {
      * Verify that empty return the total amount entered
      */
     @Test
-    public void testEmpty()
+    public void shouldReturnTotal()
             throws IllegalCoinException {
         ps.addPayment(10);
         assertEquals("empty should return total amount entered", 10, ps.empty());
@@ -174,5 +174,15 @@ public class PayStationImplTest {
         ps.empty();
         assertEquals("call to empty should reset total to zero", 0, ps.empty());
     }
-
+    
+    /**
+     * Verify that cancel returns a map containing one coin entered
+     */
+    @Test
+    public void shouldReturnOneCoinMap()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        assertEquals("cancel should return a map containing one coin entered", 5, ps.cancel() );
+        
+    }
 }

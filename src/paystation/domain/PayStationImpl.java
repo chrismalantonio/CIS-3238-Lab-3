@@ -26,6 +26,8 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    private Map<Integer, Integer> map = new HashMap<>();
+    private int coinOrder = 0; 
 
     @Override
     public void addPayment(int coinValue)
@@ -37,6 +39,8 @@ public class PayStationImpl implements PayStation {
             default:
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
+        map.put(coinOrder, coinValue); 
+//        coinOrder++; 
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
     }
@@ -55,7 +59,7 @@ public class PayStationImpl implements PayStation {
 
     @Override
     public Map<Integer,Integer> cancel() {
-        Map<Integer, Integer> map = new HashMap<>(); 
+       // Map<Integer, Integer> map = new HashMap<>(); 
         reset(); 
         return map; 
     }
