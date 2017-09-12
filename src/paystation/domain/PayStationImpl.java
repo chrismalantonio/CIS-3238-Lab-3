@@ -65,6 +65,8 @@ public class PayStationImpl implements PayStation {
     }
     
     public int empty(){
-        return insertedSoFar; 
+        int totalAmount = insertedSoFar;
+        reset();
+        return totalAmount; 
     }
 }
