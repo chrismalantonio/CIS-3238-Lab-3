@@ -1,5 +1,8 @@
 package paystation.domain;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Implementation of the pay station.
  *
@@ -51,8 +54,9 @@ public class PayStationImpl implements PayStation {
     }
 
     @Override
-    public void cancel() {
-        reset();
+    public Map<Integer,Integer> cancel() {
+        Map<Integer, Integer> map = new HashMap<>(); 
+        return map; 
     }
     
     private void reset() {

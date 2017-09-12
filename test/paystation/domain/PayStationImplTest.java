@@ -138,12 +138,20 @@ public class PayStationImplTest {
         assertEquals("Insert after cancel should work",
                 10, ps.readDisplay());
     }
-    
+
     @Test
     public void testEmpty()
-        throws IllegalCoinException{
-        ps.addPayment(10);  
-    assertEquals("empty should return total amount entered",10,ps.empty());
+            throws IllegalCoinException {
+        ps.addPayment(10);
+        assertEquals("empty should return total amount entered", 10, ps.empty());
     }
-    
+
+    @Test
+    public void testCancelMapping()
+            throws IllegalCoinException {
+        ps.addPayment(5);
+        ps.cancel();
+        ps.addPayment(25);
+        assertEquals("canceled entry should not add to the amount returned by empty", 25, ps.empty());
+    }
 }
