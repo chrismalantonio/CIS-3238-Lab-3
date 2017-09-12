@@ -139,6 +139,9 @@ public class PayStationImplTest {
                 10, ps.readDisplay());
     }
 
+    /**
+     * Verify that empty return the total amount entered
+     */
     @Test
     public void testEmpty()
             throws IllegalCoinException {
@@ -146,6 +149,10 @@ public class PayStationImplTest {
         assertEquals("empty should return total amount entered", 10, ps.empty());
     }
 
+    /**
+     * Verify that calling cancel does not add the canceled payment to the
+     * amount returned by empty
+     */
     @Test
     public void shouldNotAddToEmpty()
             throws IllegalCoinException {
@@ -154,6 +161,18 @@ public class PayStationImplTest {
         ps.addPayment(25);
         assertEquals("canceled entry should not add to the amount returned by empty", 25, ps.empty());
     }
-    
+
+    /**
+     * Verify that calling empty resets the total payment to zero
+     */
+    @Test
+    public void shouldResetTotalToZero()
+            throws IllegalCoinException {
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.empty();
+        assertEquals("call to empty should reset total to zero", 0, ps.empty());
+    }
 
 }
