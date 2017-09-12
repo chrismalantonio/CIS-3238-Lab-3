@@ -147,11 +147,13 @@ public class PayStationImplTest {
     }
 
     @Test
-    public void testCancelMapping()
+    public void shouldNotAddToEmpty()
             throws IllegalCoinException {
         ps.addPayment(5);
         ps.cancel();
         ps.addPayment(25);
         assertEquals("canceled entry should not add to the amount returned by empty", 25, ps.empty());
     }
+    
+
 }

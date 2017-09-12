@@ -56,6 +56,7 @@ public class PayStationImpl implements PayStation {
     @Override
     public Map<Integer,Integer> cancel() {
         Map<Integer, Integer> map = new HashMap<>(); 
+        reset(); 
         return map; 
     }
     
