@@ -50,4 +50,8 @@ public interface PayStation {
      * Cancel the present transaction. Resets the machine for a new transaction.
      */
     public void cancel();
+    /**
+     * Returns the total amount of money collected by the paystation since the last call and empties it
+     */
+    public int empty(); 
 }
