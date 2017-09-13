@@ -27,20 +27,22 @@ public class PayStationImpl implements PayStation {
     private int insertedSoFar;
     private int timeBought;
     private Map<Integer, Integer> map = new HashMap<>();
-    private int coinOrder = 0; 
 
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
+        int nickels, dimes, quarters;
+        nickels = dimes = quarters = 0; 
         switch (coinValue) {
-            case 5: break;
-            case 10: break;
-            case 25: break;
+            case 5: map.put(coinValue, ++nickels); 
+                break;
+            case 10: map.put(coinValue, ++dimes); 
+                break;
+            case 25: map.put(coinValue, ++quarters); 
+                break;
             default:
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
-        map.put(coinOrder, coinValue); 
-//        coinOrder++; 
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
     }
