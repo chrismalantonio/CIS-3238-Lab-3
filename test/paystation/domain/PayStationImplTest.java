@@ -189,4 +189,33 @@ public class PayStationImplTest {
         assertEquals("cancel should return a map containing one coin entered", 1, map.size());
         
     }
+    
+    /**
+     * Verify that cancel returns a map containing a mixture of coins entered
+     */
+    @Test
+    public void shouldReturnMultipleCoins()
+        throws IllegalCoinException{
+    ps.addPayment(5);
+    ps.addPayment(5);
+    ps.addPayment(10);
+    ps.addPayment(10);
+    ps.addPayment(10);
+    ps.addPayment(25); 
+    
+    Map<Integer, Integer> map = new HashMap<>();
+    map = ps.cancel(); 
+    int coin = map.get(0); 
+    assertEquals("should return a nickel", 5, coin);
+    coin = map.get(1); 
+    assertEquals("should return a nickel", 5, coin);
+    coin = map.get(2); 
+    assertEquals("should return a dime", 10, coin);
+    coin = map.get(3); 
+    assertEquals("should return a dime", 10, coin);
+    coin = map.get(4); 
+    assertEquals("should return a dime", 10, coin);
+    coin = map.get(5); 
+    assertEquals("should return a quarter", 25, coin);
+    }
 }
