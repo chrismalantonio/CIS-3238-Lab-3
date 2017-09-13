@@ -26,13 +26,12 @@ public class PayStationImpl implements PayStation {
     
     private int insertedSoFar;
     private int timeBought;
+    private int nickels, dimes, quarters;
     private Map<Integer, Integer> map = new HashMap<>();
 
     @Override
     public void addPayment(int coinValue)
             throws IllegalCoinException {
-        int nickels, dimes, quarters;
-        nickels = dimes = quarters = 0; 
         switch (coinValue) {
             case 5: map.put(coinValue, ++nickels); 
                 break;
@@ -67,6 +66,7 @@ public class PayStationImpl implements PayStation {
     
     private void reset() {
         timeBought = insertedSoFar = 0;
+        nickels = dimes = quarters = 0; 
     }
     
     public int empty(){

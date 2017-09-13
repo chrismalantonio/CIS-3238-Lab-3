@@ -176,16 +176,35 @@ public class PayStationImplTest {
         ps.empty();
         assertEquals("call to empty should reset total to zero", 0, ps.empty());
     }
-    
+
     /**
      * Verify that cancel returns a map containing one coin entered
      */
     @Test
     public void shouldReturnOneCoinMap()
             throws IllegalCoinException {
+        Map<Integer, Integer> map = new HashMap<>();
         ps.addPayment(5);
-        Map<Integer, Integer> map = new HashMap<>(); 
-        map = ps.cancel(); 
+        map = ps.cancel();
         assertEquals("cancel should return a map containing one coin entered", 1, map.size());
+    }
+
+    /**
+     * Verify that cancel returns a map containing a mixture of coins entered
+     */
+    @Test
+    public void shouldReturnMixtureOfCoins()
+            throws IllegalCoinException {
+        Map<Integer, Integer> map = new HashMap<>();
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        ps.addPayment(25);
+        map = ps.cancel(); 
+        assertEquals("cancel should return a map containing a mixture of coins entered", 3, map.size());
+
     }
 }
