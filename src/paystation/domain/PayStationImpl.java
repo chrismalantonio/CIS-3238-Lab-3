@@ -40,7 +40,7 @@ public class PayStationImpl implements PayStation {
                 throw new IllegalCoinException("Invalid coin: " + coinValue);
         }
         map.put(coinOrder, coinValue); 
-//        coinOrder++; 
+        coinOrder++; 
         insertedSoFar += coinValue;
         timeBought = insertedSoFar / 5 * 2;
     }
