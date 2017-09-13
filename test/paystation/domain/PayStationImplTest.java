@@ -225,4 +225,19 @@ public class PayStationImplTest {
         }
         assertEquals("there should be no quarters in the map", 0, quarter);
     }
+    
+    /**
+     * Verify that the map will contain 5 and 10 cent coins, but not 25
+     */
+    @Test
+    public void clearMapOnCancel()
+            throws IllegalCoinException{
+        Map<Integer, Integer> map = new HashMap<>();
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        map = ps.cancel(); 
+        int mapSize = map.size();
+        assertEquals("the map should have no keys after cancel", 0, mapSize);
+    }
 }
