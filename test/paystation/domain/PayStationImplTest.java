@@ -205,6 +205,20 @@ public class PayStationImplTest {
         ps.addPayment(25);
         map = ps.cancel(); 
         assertEquals("cancel should return a map containing a mixture of coins entered", 3, map.size());
-
     }
+    
+    /**
+     * Verify that cancel returns a map that does not contain a key for a coin not entered
+     */
+    @Test
+    public void shouldOnlyMapKeysForCoinsEntered()
+            throws IllegalCoinException{
+        Map<Integer, Integer> map = new HashMap<>();
+        ps.addPayment(5);
+        ps.addPayment(10);
+        map = ps.cancel(); 
+        int quarter = map.get(25); 
+        assertEquals("cancel should return a map cthat does not contain a key for a coin not entered", 25, quarter);
+    
+}
 }
