@@ -186,7 +186,8 @@ public class PayStationImplTest {
         Map<Integer, Integer> map = new HashMap<>();
         ps.addPayment(5);
         map = ps.cancel();
-        assertEquals("cancel should return a map containing one coin entered", 1, map.size());
+        int nickel = map.get(5); 
+        assertEquals("cancel should return a map containing one coin entered", 1, nickel);
     }
 
     /**
@@ -204,7 +205,12 @@ public class PayStationImplTest {
         ps.addPayment(25);
         ps.addPayment(25);
         map = ps.cancel();
-        assertEquals("cancel should return a map containing a mixture of coins entered", 3, map.size());
+        int nickel = map.get(5);
+        int dime = map.get(10);
+        int quarter = map.get(25); 
+        assertEquals("should return one nickel", 1, nickel);
+        assertEquals("should return two dimes", 2, dime);
+        assertEquals("should return four quarters", 4, quarter);
     }
 
     /**
@@ -227,7 +233,7 @@ public class PayStationImplTest {
     }
     
     /**
-     * Verify that the map will contain 5 and 10 cent coins, but not 25
+     * Verify that cancel clears the map
      */
     @Test
     public void clearMapOnCancel()
@@ -236,6 +242,7 @@ public class PayStationImplTest {
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
+        ps.cancel(); 
         map = ps.cancel(); 
         int mapSize = map.size();
         assertEquals("the map should have no keys after cancel", 0, mapSize);

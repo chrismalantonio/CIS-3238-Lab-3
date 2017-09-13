@@ -60,13 +60,16 @@ public class PayStationImpl implements PayStation {
 
     @Override
     public Map<Integer,Integer> cancel() {
+        Map<Integer,Integer> mapCopy = new HashMap<>();
+        mapCopy.putAll(map);  
         reset(); 
-        return map; 
+        return mapCopy; 
     }
     
     private void reset() {
         timeBought = insertedSoFar = 0;
         nickels = dimes = quarters = 0; 
+        map.clear(); 
     }
     
     public int empty(){
