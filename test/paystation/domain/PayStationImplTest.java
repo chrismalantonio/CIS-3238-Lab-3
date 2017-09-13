@@ -142,13 +142,14 @@ public class PayStationImplTest {
     }
 
     /**
-     * Verify that empty return the total amount entered
+     * Verify that the total amount is returned
      */
     @Test
     public void shouldReturnTotal()
             throws IllegalCoinException {
         ps.addPayment(10);
-        assertEquals("empty should return total amount entered", 10, ps.empty());
+        ps.addPayment(10);
+        assertEquals("empty should return total amount entered", 20, ps.empty());
     }
 
     /**
@@ -165,7 +166,7 @@ public class PayStationImplTest {
     }
 
     /**
-     * Verify that calling empty resets the total payment to zero
+     * Verify that the total payment is reset to zero 
      */
     @Test
     public void shouldResetTotalToZero()
@@ -178,7 +179,7 @@ public class PayStationImplTest {
     }
 
     /**
-     * Verify that cancel returns a map containing one coin entered
+     * Verify that the map contains one coin
      */
     @Test
     public void shouldReturnOneCoinMap()
@@ -186,12 +187,12 @@ public class PayStationImplTest {
         Map<Integer, Integer> map = new HashMap<>();
         ps.addPayment(5);
         map = ps.cancel();
-        int nickel = map.get(5); 
+        int nickel = map.get(5);
         assertEquals("cancel should return a map containing one coin entered", 1, nickel);
     }
 
     /**
-     * Verify that cancel returns a map containing a mixture of coins entered
+     * Verify that the map contains a mixture of coins
      */
     @Test
     public void shouldReturnMixtureOfCoins()
@@ -207,7 +208,7 @@ public class PayStationImplTest {
         map = ps.cancel();
         int nickel = map.get(5);
         int dime = map.get(10);
-        int quarter = map.get(25); 
+        int quarter = map.get(25);
         assertEquals("should return one nickel", 1, nickel);
         assertEquals("should return two dimes", 2, dime);
         assertEquals("should return four quarters", 4, quarter);
@@ -231,20 +232,36 @@ public class PayStationImplTest {
         }
         assertEquals("there should be no quarters in the map", 0, quarter);
     }
-    
+
     /**
      * Verify that cancel clears the map
      */
     @Test
     public void clearMapOnCancel()
-            throws IllegalCoinException{
+            throws IllegalCoinException {
         Map<Integer, Integer> map = new HashMap<>();
         ps.addPayment(5);
         ps.addPayment(10);
         ps.addPayment(25);
-        ps.cancel(); 
-        map = ps.cancel(); 
+        ps.cancel();
+        map = ps.cancel();
         int mapSize = map.size();
         assertEquals("the map should have no keys after cancel", 0, mapSize);
+    }
+
+    /**
+     * Verify that buying time clears the map
+     */
+    @Test
+    public void clearMapOnBuy()
+            throws IllegalCoinException {
+        Map<Integer, Integer> map = new HashMap<>();
+        ps.addPayment(5);
+        ps.addPayment(10);
+        ps.addPayment(25);
+        ps.buy();
+        map = ps.cancel();
+        int mapSize = map.size();
+        assertEquals("the map should have no keys after buying time", 0, mapSize);
     }
 }
