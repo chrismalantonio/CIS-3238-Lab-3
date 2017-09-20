@@ -22,6 +22,7 @@ package paystation.domain;
 import java.util.Map;
 
 public interface PayStation {
+    
 
     /**
      * Insert coin into the pay station and adjust state accordingly.
