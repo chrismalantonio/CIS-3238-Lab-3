@@ -18,16 +18,11 @@ public class demoPayStation {
     public static void main(String[] args) {
 
         //initialize rateStrategy to alphatown's linear rate strategy
-        RateStrategy rateStrategy = new LinearRateStrategy(); 
+        RateStrategy rateStrategy = new LinearRateStrategy();
         PayStationImpl paystation = new PayStationImpl(rateStrategy);
         int timeBought, totalValue, nickels, dimes, quarters;
 
         while (true) {
-            //1. deposit coins
-            //2. display
-            //3. buy ticket
-            //4. cancel
-            //5. change rate strategy
             String[] choices = {"Deposit coins", "Display", "Buy ticket", "Cancel", "Change rate strategy"};
             String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
                     "PayStation options", JOptionPane.QUESTION_MESSAGE, null, // Use
@@ -46,7 +41,7 @@ public class demoPayStation {
                                     "Coin selection", JOptionPane.QUESTION_MESSAGE, null, // Use
                                     coinValue, // Array of choices
                                     coinValue[0]); // Initial choice
-                            System.out.println(inputCoin);
+                            //System.out.println(inputCoin);
                             try {
                                 paystation.addPayment(Integer.valueOf(inputCoin));
                             } catch (Exception e) {
@@ -69,7 +64,7 @@ public class demoPayStation {
                         Map<Integer, Integer> map = new HashMap<>();
                         map = paystation.cancel();
                         nickels = dimes = quarters = 0;
-                        
+
                         try {
                             nickels = map.remove(5);
                         } catch (Exception e) {
@@ -83,18 +78,35 @@ public class demoPayStation {
 
                         } catch (Exception e) {
                         }
-                        
+
                         System.out.println("Nickels: " + nickels);
                         System.out.println("Dimes: " + dimes);
                         System.out.println("Quarters: " + quarters);
                         totalValue = (nickels * 5) + (dimes * 10) + (quarters * 25);
                         System.out.println("Total value: " + totalValue);
                         JOptionPane.showMessageDialog(null,
-                                "Transaction canceled\nTotal amount returned: " + totalValue + " cents\n" 
-                        + "Nickels: " + nickels + "\nDimes: " + dimes + "\nQuarters: " + quarters);
+                                "Transaction canceled\nTotal amount returned: " + totalValue + " cents\n"
+                                + "Nickels: " + nickels + "\nDimes: " + dimes + "\nQuarters: " + quarters);
 
                         return;
                     case "Change rate strategy":
+                        String rateStrategies[] = {"Linear", "Progressive", "Alternating"};
+                        String changeRateStrategy = (String) JOptionPane.showInputDialog(null, "Choose now...",
+                                "Rate Strategy selection", JOptionPane.QUESTION_MESSAGE, null, // Use
+                                rateStrategies, // Array of choices
+                                rateStrategies[0]); // Initial choice
+                        System.out.println(changeRateStrategy);
+                        if (changeRateStrategy == null) {
+                            break;
+                        }
+                        if (changeRateStrategy.equals("Linear")) {
+                            rateStrategy = new LinearRateStrategy();
+                        } else if (changeRateStrategy.equals("Progressive")) {
+                            rateStrategy = new ProgressiveRateStrategy();
+                        } else if (changeRateStrategy.equals("Alternating")) {
+                            rateStrategy = new AlternatingRateStrategy(new ProgressiveRateStrategy(), new LinearRateStrategy());
+                        }
+                        paystation = new PayStationImpl(rateStrategy);
                         break;
                 }
             }
